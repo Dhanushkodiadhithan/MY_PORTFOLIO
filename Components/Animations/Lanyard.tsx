@@ -32,6 +32,7 @@ interface LanyardProps {
   gravity?: [number, number, number];
   fov?: number;
   transparent?: boolean;
+
 }
 
 export default function Lanyard({
@@ -39,12 +40,15 @@ export default function Lanyard({
   gravity = [0, -40, 0],
   fov = 20,
   transparent = true,
+  
+
 }: LanyardProps) {
   return (
-    <div className="relative z-0 w-full h-screen flex justify-center items-start  transform scale-100 origin-top">
+<div className="relative z-0 w-full h-screen  transform scale-100 origin-top ">
       <Canvas
         camera={{ position, fov }}
         gl={{ alpha: transparent }}
+        style={{ overflow: "visible" }}  
         onCreated={({ gl }) =>
           gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)
         }
@@ -217,7 +221,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
       <group position={[0, 4, 0]}>
         <RigidBody
           ref={fixed}
-          position={[0, 0.3, 0]}
+          position={[0, 0, 0]}
           {...segmentProps}
           type={"fixed" as RigidBodyProps["type"]}
         />
@@ -232,7 +236,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
         </RigidBody>
 
         <RigidBody
-          position={[2, 0, 0]}
+          position={[0, 0, 0]}
           ref={card}
           {...segmentProps}
           type={

@@ -1,19 +1,16 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Your Theme Colors */
 :root {
   --primary: black;
-  --secondary: oklch(0.97 0 0);
-  --tertiary: skyblue;
-
+  --secondary: #ffff00;
+  --tertiary: #87ceeb;
 }
 
-
-@layer base {
- 
-  
-  body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-  }
+/* FIX: Allow the lanyard to swing across both divs */
+body {
+  background-color: var(--primary);
+  color: white;
+  overflow: visible !important;
 }
