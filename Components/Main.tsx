@@ -1,6 +1,5 @@
 "use client";
 import Lanyard from "./Animations/Lanyard";
-import BlurText from "./Animations/BlurText";
 import Particles from "./Animations/Particles";
 
 export default function Main() {
@@ -8,7 +7,7 @@ export default function Main() {
     <main className="relative w-full h-screen flex">
 
       {/* BACKGROUND PARTICLES LAYER */}
-      <div className="absolute inset-0 -z-10  bg-[#1A1A1A]">
+      <div className="absolute inset-0 -z-10 bg-[#1A1A1A]">
         <Particles
           particleColors={['#87ceeb', '#87ceeb']}
           particleCount={1000}
@@ -31,18 +30,17 @@ export default function Main() {
       <div className="w-1/2 h-full flex flex-col text-white p-10 gap-7
                       justify-center text-2xl font-semibold relative z-10">
 
-        <BlurText text="Hi There... !" delay={100} animateBy="words" direction="top" />
+        <div>Hi There... !</div>
 
         <div className="flex gap-2 items-center">
-          <BlurText text="I'm" delay={200} animateBy="words" direction="top" />
-          <span className="text-(--secondary)">
-            <BlurText text="Dhanushkodi Adhithan" delay={250} animateBy="words" direction="top" />
-          </span>
-          <BlurText text=".M" delay={300} animateBy="words" direction="top" />
+          <div>I'm</div>
+          <span className="text-(--secondary)">Dhanushkodi Adhithan</span>
+          <div>.M</div>
         </div>
 
-        <BlurText text="ME - CSE 1st Year" delay={350} animateBy="words" direction="top" />
-        <BlurText text="Krishnasamy College of Engineering and Technology" delay={400} animateBy="words" direction="top" />
+        <div>ME - CSE 1st Year</div>
+
+        <div>Krishnasamy College of Engineering and Technology</div>
 
         <div>
           <a href="/Dhanushkodi_Resume.pdf" download>
