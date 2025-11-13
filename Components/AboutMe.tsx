@@ -1,6 +1,6 @@
 "use client";
-import { IoMdInfinite } from "react-icons/io";
 import ProfileCard from "./ProfileCard";
+
 export default function AboutMe() {
   return (
     <>
@@ -11,10 +11,18 @@ export default function AboutMe() {
         </h1>
 
         {/* TWO COLUMN LAYOUT */}
-        <div className="flex justify-center gap-10 mt-18">
+        <div className="flex justify-center gap-10 mt-18 pb-8">
           {/* LEFT SIDE */}
-          <div className="w-1/2 text-white text-lg leading-relaxed text-justify ">
-            <p className="indent-10">
+          <div className="w-1/2 text-white text-lg leading-relaxed text-justify">
+            {/* Paragraph 1 */}
+            <p
+              className="indent-10 "
+              style={{
+                opacity: 0,
+                animation: "fadeBlurUp 0.8s ease-out forwards",
+                animationDelay: "0.1s",
+              }}
+            >
               I completed my Bachelor’s degree in Computer Science and
               Engineering, where I developed a solid foundation in programming,
               algorithms, and problem-solving. My undergraduate journey helped
@@ -24,7 +32,15 @@ export default function AboutMe() {
 
             <br />
 
-            <p className="indent-10">
+            {/* Paragraph 2 */}
+            <p
+              className="indent-10"
+              style={{
+                opacity: 0,
+                animation: "fadeBlurUp 0.8s ease-out forwards",
+                animationDelay: "0.35s",
+              }}
+            >
               Currently, I am pursuing my Master of Engineering in Computer
               Science and Engineering (1st Year). This phase of my academic
               journey allows me to dive deeper into advanced concepts, emerging
@@ -34,7 +50,16 @@ export default function AboutMe() {
             </p>
 
             <br />
-            <p className="indent-10">
+
+            {/* Paragraph 3 */}
+            <p
+              className="indent-10"
+              style={{
+                opacity: 0,
+                animation: "fadeBlurUp 0.8s ease-out forwards",
+                animationDelay: "0.6s",
+              }}
+            >
               I have a strong interest in full-stack development and enjoy
               working across both the frontend and backend. I’ve been building
               projects that combine clean and responsive UI design with solid
