@@ -4,10 +4,10 @@ import Particles from "./Animations/Particles";
 
 export default function Main() {
   return (
-    <main className="relative w-full h-screen flex">
+    <main className="relative w-full h-screen flex shadow-[0_4px_10px_rgba(128,128,128,0.4)]  bg-[#00000013]">
 
       {/* BACKGROUND PARTICLES LAYER */}
-      <div className="absolute inset-0 -z-10 bg-[#1A1A1A]">
+      <div className="absolute inset-0 -z-10 ">
         <Particles
           particleColors={['#87ceeb', '#87ceeb']}
           particleCount={1000}
@@ -28,7 +28,7 @@ export default function Main() {
 
       {/* RIGHT SIDE - TEXT */}
       <div className="w-1/2 h-full flex flex-col text-white p-10 gap-7
-                      justify-center text-2xl font-semibold relative z-10">
+                      justify-center text-2xl font-semibold relative z-10 cursor-default">
 
         <div>Hi There... !</div>
 

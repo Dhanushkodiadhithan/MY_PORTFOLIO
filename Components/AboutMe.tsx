@@ -1,0 +1,75 @@
+"use client";
+import { IoMdInfinite } from "react-icons/io";
+import ProfileCard from "./ProfileCard";
+export default function AboutMe() {
+  return (
+    <>
+      <div className="p-10 shadow-[0_4px_10px_rgba(128,128,128,0.4)]">
+        <h1 className="text-4xl font-bold mb-10 text-center">
+          <span className="text-(--tertiary)">About </span>
+          <span className="text-(--secondary)">Me</span>
+        </h1>
+
+        {/* TWO COLUMN LAYOUT */}
+        <div className="flex justify-center gap-10 mt-18">
+          {/* LEFT SIDE */}
+          <div className="w-1/2 text-white text-lg leading-relaxed text-justify ">
+            <p className="indent-10">
+              I completed my Bachelor’s degree in Computer Science and
+              Engineering, where I developed a solid foundation in programming,
+              algorithms, and problem-solving. My undergraduate journey helped
+              me explore various technologies and understand the core principles
+              that shape modern computing.
+            </p>
+
+            <br />
+
+            <p className="indent-10">
+              Currently, I am pursuing my Master of Engineering in Computer
+              Science and Engineering (1st Year). This phase of my academic
+              journey allows me to dive deeper into advanced concepts, emerging
+              technologies, and specialized areas within the field. I’m
+              consistently working to expand my technical knowledge and
+              strengthen my expertise.
+            </p>
+
+            <br />
+            <p className="indent-10">
+              I have a strong interest in full-stack development and enjoy
+              working across both the frontend and backend. I’ve been building
+              projects that combine clean and responsive UI design with solid
+              backend functionality. As I continue learning new tools and
+              frameworks, I’m focused on becoming a well-rounded full-stack
+              developer capable of creating complete, scalable, and
+              user-friendly applications.
+            </p>
+          </div>
+
+          {/* RIGHT SIDE – Only Profile Card */}
+          <div className="w-1/2 flex justify-center align-center">
+            <ProfileCard
+              name="Dhanushkodi Adhithan. M"
+              title="Full Stack Developer"
+              handle="@dhanu"
+              status="Available"
+              avatarUrl="/MY_PIC.jpg"
+              contactText="WhatsApp Me"
+              showUserInfo={true}
+              enableTilt={true}
+              enableMobileTilt={true}
+              onContactClick={() => {
+                const phone = "916374993897";
+                const message =
+                  "Hello! I visited your portfolio and would like to connect.";
+                window.open(
+                  `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
+                  "_blank"
+                );
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
