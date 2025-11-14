@@ -36,11 +36,12 @@ export default function Nav() {
         />
       </div>
       <div className="text-white flex space-x-8 text-lg font-bold cursor-pointer font-sans ">
-        <span className="cursor-target px-3">Home</span>
-        <span className="cursor-target px-3">About</span>
-        <span className="cursor-target px-3">Skills</span>
-        <span className="cursor-target px-3">Projects</span>
-        <span className="cursor-target px-3">Contact</span>
+        <span className="cursor-target px-3">HOME</span>
+        <span className="cursor-target px-3">ABOUT</span>
+        <span className="cursor-target px-3">SKILLS</span>
+        <span className="cursor-target px-3">PROJECTS</span>
+        <span className="cursor-target px-3">CERTIFICATES</span>
+        <span className="cursor-target px-3">CONTACT</span>
       </div>
     </div>
   );

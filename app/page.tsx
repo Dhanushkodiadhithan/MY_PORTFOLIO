@@ -2,6 +2,10 @@ import Nav from "@/Components/Nav";
 import Main from "@/Components/Main";
 import AboutMe from "@/Components/AboutMe";
 import Skills from "@/Components/Skills";
+import IconsLoops from "@/Components/IconsLoops";
+import Projects from "@/Components/Projects";
+import Certificates from "@/Components/Certificates";
+
 export default function Home() {
   return (
     <>
@@ -9,6 +13,9 @@ export default function Home() {
       <Main />
       <AboutMe />
       <Skills />
+      <IconsLoops />
+      <Projects />
+      <Certificates />
     </>
   );
 }

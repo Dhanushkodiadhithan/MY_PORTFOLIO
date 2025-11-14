@@ -43,7 +43,7 @@ export default function Skills() {
 
   return (
     <>
-      <div className="p-10 shadow-[0_4px_10px_rgba(128,128,128,0.4)]">
+      <div className="p-10 pb-20 ">
         <h1 className="text-4xl font-bold mb-10 text-center">
           <span className="text-(--secondary)">My </span>
           <span className="text-(--tertiary)">Skills</span>
