@@ -19,8 +19,10 @@ export default function Nav() {
       }}
     >
       <div className="text-2xl font-bold p-2 cursor-target">
+        <a href="#home">
         <span className="text-(--tertiary)">MY_</span>
         <span className="text-(--secondary)">PORTFOLIO</span>
+        </a>
       </div>
 
       {/* Custom Cursor visibility */}
@@ -36,12 +38,29 @@ export default function Nav() {
         />
       </div>
       <div className="text-white flex space-x-8 text-lg font-bold cursor-pointer font-sans ">
-        <span className="cursor-target px-3">HOME</span>
-        <span className="cursor-target px-3">ABOUT</span>
-        <span className="cursor-target px-3">SKILLS</span>
-        <span className="cursor-target px-3">PROJECTS</span>
-        <span className="cursor-target px-3">CERTIFICATES</span>
-        <span className="cursor-target px-3">CONTACT</span>
+        <span className="cursor-target px-3">
+          <a href="#home">HOME</a>
+        </span>
+
+        <span className="cursor-target px-3">
+          <a href="#about">ABOUT</a>
+        </span>
+
+        <span className="cursor-target px-3">
+          <a href="#skills">SKILLS</a>
+        </span>
+
+        <span className="cursor-target px-3">
+          <a href="#projects">PROJECTS</a>
+        </span>
+
+        <span className="cursor-target px-3">
+          <a href="#certificates">CERTIFICATES</a>
+        </span>
+
+        <span className="cursor-target px-3">
+          <a href="#contact">CONTACT</a>
+        </span>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 import { IconCloud } from "./Animations/icon-cloud";
-
 const slugs = [
   "typescript",
   "javascript",
