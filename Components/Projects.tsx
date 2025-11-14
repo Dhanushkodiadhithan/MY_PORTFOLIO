@@ -14,11 +14,17 @@ export default function Projects() {
           <div className="cursor-pointer">
             <b className="text-2xl text-(--secondary)">ToDo_App</b>
             <p className="mt-2 text-justify indent-7">
-              This To-Do App is a simple task manager built with React and Vite,
-              allowing users to quickly add, complete, and delete tasks.
-              Completed items automatically move to the bottom, and a live
-              summary displays total and finished tasks. The app focuses on
-              clean UI, smooth interactions, and efficient state handling.
+              This To-Do App is a simple and efficient task manager built with
+              React and Vite, designed to help users organize their daily
+              activities with ease. It allows users to quickly add new tasks,
+              mark them as completed, and delete them when no longer needed.
+              Completed items automatically move to the bottom to keep the
+              active list clean and readable. A live summary at the bottom
+              displays the total number of tasks along with how many have been
+              completed, giving a quick overview of progress. The app focuses on
+              clean UI design, smooth interactions, and efficient state
+              handling, making it both intuitive and responsive for everyday
+              use.
             </p>
           </div>
           <div className="flex justify-center items-center">
