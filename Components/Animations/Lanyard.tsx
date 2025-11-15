@@ -1,5 +1,10 @@
 /* eslint-disable react/no-unknown-property */
 "use client";
+import {
+  MeshLine,
+  MeshLineGeometry,
+  MeshLineMaterial,
+} from "@lume/three-meshline";
 
 import { useEffect, useRef, useState } from "react";
 import { Canvas, extend, useFrame } from "@react-three/fiber";
@@ -18,21 +23,17 @@ import {
   useSphericalJoint,
   RigidBodyProps,
 } from "@react-three/rapier";
-import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import * as THREE from "three";
-
+extend({ MeshLine, MeshLineGeometry, MeshLineMaterial });
 // Static asset paths (served from /public)
 const cardGLB = "/card.glb";
 const lanyard = "/lanyard.png";
-
-extend({ MeshLineGeometry, MeshLineMaterial });
 
 interface LanyardProps {
   position?: [number, number, number];
   gravity?: [number, number, number];
   fov?: number;
   transparent?: boolean;
-
 }
 
 export default function Lanyard({
@@ -40,15 +41,13 @@ export default function Lanyard({
   gravity = [0, -40, 0],
   fov = 20,
   transparent = true,
-  
-
 }: LanyardProps) {
   return (
-<div className="relative z-0 w-full h-screen  transform scale-100 origin-top ">
+    <div className="relative z-0 w-full h-screen  transform scale-100 origin-top ">
       <Canvas
         camera={{ position, fov }}
         gl={{ alpha: transparent }}
-        style={{ overflow: "visible" }}  
+        style={{ overflow: "visible" }}
         onCreated={({ gl }) =>
           gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)
         }
@@ -285,16 +284,15 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
       </group>
 
       {/* 🧵 Lanyard strap */}
-      <mesh ref={band}>
-        <meshLineGeometry />
+
+      <mesh>
+        <meshLine attach="geometry" ref={band} />
         <meshLineMaterial
-          color="white"
-          depthTest={false}
-          resolution={isSmall ? [1000, 2000] : [1000, 1000]}
-          useMap
+          attach="material"
           map={texture}
-          repeat={[-4, 1]}
           lineWidth={1}
+          color="white"
+          resolution={[1000, 1000]}
         />
       </mesh>
     </>
