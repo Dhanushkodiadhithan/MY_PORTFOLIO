@@ -74,7 +74,7 @@ export default function Main() {
           <a href="tel:+916374993897">
             <i className="fa-solid fa-phone text-blue-500 hover:text-yellow-300 cursor-pointer mr-6"></i>
           </a>
-          <a href="mailto:dhanushkodiadhithanm2003gmail.com">
+          <a href="mailto:dhanushkodiadhithanm2003@gmail.com">
             <i className="fa-solid fa-envelope text-blue-500 hover:text-yellow-300 cursor-pointer"></i>
           </a>
         </div>
