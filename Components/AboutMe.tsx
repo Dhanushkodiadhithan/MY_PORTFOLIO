@@ -77,7 +77,7 @@ export default function AboutMe() {
               title="Full Stack Developer"
               handle="@dhanu"
               status="Available"
-              avatarUrl="/MY_PIC.jpg"
+              avatarUrl="/My_Pic.jpg"
               contactText="WhatsApp Me"
               showUserInfo={true}
               enableTilt={true}
