@@ -42,28 +42,30 @@ export default function Skills() {
 
   return (
     <>
-      <div className="p-10 pb-20 ">
+      <div className="p-10 pb-20">
         <h1 className="text-4xl font-bold mb-10 text-center">
           <span className="text-(--secondary)">My </span>
           <span className="text-(--tertiary)">Skills</span>
         </h1>
 
-        {/* TWO COLUMN LAYOUT */}
-        <div className="flex gap-10 mt-18">
-          {/* LEFT SIDE */}
-          <div className="w-1/2 cursor-pointer">
-            <div className="relative flex size-full items-center justify-center overflow-hidden">
+        {/* FLEX — mobile: column-reverse, desktop: row */}
+        <div className="flex flex-col md:flex-row gap-10 mt-18">
+
+          {/* LEFT SIDE → IconCloud (ON TOP IN MOBILE) */}
+          <div className="w-full md:w-1/2 cursor-pointer flex justify-center">
+            <div className="relative flex size-full max-w-[350px] md:max-w-none items-center justify-center overflow-hidden">
               <IconCloud images={images} />
             </div>
           </div>
 
-          {/* RIGHT SIDE */}
-          <div className="w-1/2 cursor-pointer">
+          {/* RIGHT SIDE → Skills List */}
+          <div className="w-full md:w-1/2 cursor-pointer">
             <div className="w-full text-white space-y-8">
+
               {/* Frontend */}
               <div
                 className="p-5 rounded-2xl bg-[#1b1b1b] shadow-lg border border-white/10
-                  transition-all duration-300 hover:-translate-y-1 hover:shadow-(--tertiary)/40 hover:border-(--tertiary)"
+                transition-all duration-300 hover:-translate-y-1 hover:shadow-(--tertiary)/40 hover:border-(--tertiary)"
               >
                 <h2 className="text-2xl font-semibold mb-4 text-(--secondary)">
                   Frontend
@@ -82,8 +84,8 @@ export default function Skills() {
                     <span
                       key={skill}
                       className="px-3 py-1 text-sm rounded-full bg-white/10 border border-white/20 
-                     backdrop-blur-md transition-all duration-300
-                     hover:bg-white/20 hover:border-(--secondary) hover:scale-105"
+                      backdrop-blur-md transition-all duration-300
+                      hover:bg-white/20 hover:border-(--secondary) hover:scale-105"
                     >
                       {skill}
                     </span>
@@ -94,7 +96,7 @@ export default function Skills() {
               {/* Backend */}
               <div
                 className="p-5 rounded-2xl bg-[#1b1b1b] shadow-lg border border-white/10
-                  transition-all duration-300 hover:-translate-y-1 hover:shadow-(--secondary)/40 hover:border-(--tertiary)"
+                transition-all duration-300 hover:-translate-y-1 hover:shadow-(--secondary)/40 hover:border-(--tertiary)"
               >
                 <h2 className="text-2xl font-semibold mb-4 text-(--secondary)">
                   Backend
@@ -104,8 +106,8 @@ export default function Skills() {
                     <span
                       key={skill}
                       className="px-3 py-1 text-sm rounded-full bg-white/10 border border-white/20 
-                     backdrop-blur-md transition-all duration-300
-                     hover:bg-white/20 hover:border-(--secondary) hover:scale-105"
+                      backdrop-blur-md transition-all duration-300
+                      hover:bg-white/20 hover:border-(--secondary) hover:scale-105"
                     >
                       {skill}
                     </span>
@@ -116,7 +118,7 @@ export default function Skills() {
               {/* Database */}
               <div
                 className="p-5 rounded-2xl bg-[#1b1b1b] shadow-lg border border-white/10
-                  transition-all duration-300 hover:-translate-y-1 hover:shadow-(--secondary)/40 hover:border-(--tertiary)"
+                transition-all duration-300 hover:-translate-y-1 hover:shadow-(--secondary)/40 hover:border-(--tertiary)"
               >
                 <h2 className="text-2xl font-semibold mb-4 text-(--secondary)">
                   Databases
@@ -126,8 +128,8 @@ export default function Skills() {
                     <span
                       key={skill}
                       className="px-3 py-1 text-sm rounded-full bg-white/10 border border-white/20 
-                     backdrop-blur-md transition-all duration-300
-                     hover:bg-white/20 hover:border-(--secondary) hover:scale-105"
+                      backdrop-blur-md transition-all duration-300
+                      hover:bg-white/20 hover:border-(--secondary) hover:scale-105"
                     >
                       {skill}
                     </span>
@@ -138,7 +140,7 @@ export default function Skills() {
               {/* Tools */}
               <div
                 className="p-5 rounded-2xl bg-[#1b1b1b] shadow-lg border border-white/10
-                  transition-all duration-300 hover:-translate-y-1 hover:shadow-(--secondary)/40 hover:border-(--tertiary)"
+                transition-all duration-300 hover:-translate-y-1 hover:shadow-(--secondary)/40 hover:border-(--tertiary)"
               >
                 <h2 className="text-2xl font-semibold mb-4 text-(--secondary)">
                   Tools
@@ -149,8 +151,8 @@ export default function Skills() {
                       <span
                         key={skill}
                         className="px-3 py-1 text-sm rounded-full bg-white/10 border border-white/20 
-                     backdrop-blur-md transition-all duration-300
-                     hover:bg-white/20 hover:border-(--secondary) hover:scale-105"
+                        backdrop-blur-md transition-all duration-300
+                        hover:bg-white/20 hover:border-(--secondary) hover:scale-105"
                       >
                         {skill}
                       </span>
@@ -158,8 +160,10 @@ export default function Skills() {
                   )}
                 </div>
               </div>
+
             </div>
           </div>
+
         </div>
       </div>
     </>

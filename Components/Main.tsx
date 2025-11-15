@@ -1,34 +1,45 @@
 "use client";
+import { useEffect, useState } from "react";
 import Lanyard from "./Animations/Lanyard";
 import Particles from "./Animations/Particles";
 
 export default function Main() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // enables particle + lanyard ONLY in the browser
+  }, []);
+
   return (
-    <main className="relative w-full h-screen flex shadow-[0_4px_10px_rgba(128,128,128,0.4)]  bg-[#00000013]">
+    <main className="relative w-full h-screen flex shadow-[0_4px_10px_rgba(128,128,128,0.4)] bg-[#00000013]">
 
-      {/* BACKGROUND PARTICLES LAYER */}
-      <div className="absolute inset-0 -z-10 ">
-        <Particles
-          particleColors={['#87ceeb', '#87ceeb']}
-          particleCount={1000}
-          particleSpread={20}
-          speed={0.1}
-          particleBaseSize={100}
-          moveParticlesOnHover={true}
-          alphaParticles={false}
-          disableRotation={false}
-          className="pointer-events-auto"
-        />
+      {/* BACKGROUND PARTICLES LAYER (CLIENT ONLY) */}
+      {isClient && (
+        <div className="absolute inset-0 -z-10">
+          <Particles
+            particleColors={["#87ceeb", "#87ceeb"]}
+            particleCount={1000}
+            particleSpread={20}
+            speed={0.1}
+            particleBaseSize={100}
+            moveParticlesOnHover={true}
+            alphaParticles={false}
+            disableRotation={false}
+            className="pointer-events-auto"
+          />
+        </div>
+      )}
+
+      {/* LEFT SIDE - CARD (HIDDEN ON MOBILE) */}
+      <div className="w-1/2 h-full relative overflow-visible hidden md:block">
+        {isClient && (
+          <Lanyard position={[0, 0, 25]} gravity={[0, -40, 0]} />
+        )}
       </div>
 
-      {/* LEFT SIDE - CARD */}
-      <div className="w-1/2 h-full relative overflow-visible">
-        <Lanyard position={[0, 0, 25]} gravity={[0, -40, 0]} />
-      </div>
-
-      {/* RIGHT SIDE - TEXT */}
-      <div className="w-1/2 h-full flex flex-col text-white p-10 gap-7
-                      justify-center text-2xl font-semibold relative z-10 cursor-default">
+      {/* RIGHT SIDE - TEXT (FULL WIDTH ON MOBILE) */}
+      <div className="w-full md:w-1/2 h-full flex flex-col text-white p-10 gap-7
+                      justify-center font-semibold relative z-10 cursor-default text-xl md:text-2xl">
 
         <div>Hi There... !</div>
 
@@ -43,7 +54,7 @@ export default function Main() {
         <div>Krishnasamy College of Engineering and Technology</div>
 
         <div>
-          <a href="/Dhanushkodi_Resume.pdf" download>
+          <a href="/Dhanushkodi_Adhithan_Resume.pdf" download>
             <button
               type="button"
               className="

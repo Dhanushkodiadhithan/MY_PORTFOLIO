@@ -1,4 +1,3 @@
-
 import {
   DraggableCardBody,
   DraggableCardContainer,
@@ -27,19 +26,19 @@ export default function Certificates() {
       className: "absolute top-32 left-[55%] rotate-[10deg]",
     },
     {
-        title: "Code in the Dark",
-        image: "/Certificates/Certificate5.jpg",
-        className: "absolute top-20 right-[35%] rotate-[2deg]",
+      title: "Code in the Dark",
+      image: "/Certificates/Certificate5.jpg",
+      className: "absolute top-20 right-[35%] rotate-[2deg]",
     },
     {
-        title: "Web Fazhan",
-        image: "/Certificates/Certificate6.jpg",
-        className: "absolute top-24 left-[45%] rotate-[-7deg]",
+      title: "Web Fazhan",
+      image: "/Certificates/Certificate6.jpg",
+      className: "absolute top-24 left-[45%] rotate-[-7deg]",
     },
     {
-        title: "Reverse Coding",
-        image: "/Certificates/Certificate7.jpg",
-        className: "absolute top-8 left-[30%] rotate-[4deg]",
+      title: "Reverse Coding",
+      image: "/Certificates/Certificate7.jpg",
+      className: "absolute top-8 left-[30%] rotate-[4deg]",
     },
     {
       title: "Code Craft",
@@ -47,18 +46,22 @@ export default function Certificates() {
       className: "absolute top-5 left-[40%] rotate-[8deg]",
     },
   ];
+
   return (
     <>
-      <div className="p-10 pb-20 shadow-[0_4px_10px_rgba(128,128,128,0.4)] cursor-pointer">
+      {/* HIDE ON MOBILE → SHOW ONLY ON MD & ABOVE */}
+      <div className="hidden md:block p-10 pb-20 shadow-[0_4px_10px_rgba(128,128,128,0.4)] cursor-pointer">
         <h1 className="text-4xl font-bold mb-10 text-center">
           <span className="text-(--secondary)">Certi</span>
           <span className="text-(--tertiary)">ficates</span>
         </h1>
-        <div className="bg-[#1b1b1b]   rounded-2xl shadow-lg border border-white/10">
-          <DraggableCardContainer className="relative h-[600px] flex  w-full items-center justify-center overflow-hidden">
-            <p className="absolute top-1/2 mx-auto max-w-sm -translate-y-3/4 text-center text-2xl font-black text-neutral-400 md:text-4xl dark:text-neutral-800">
-                Hover and drag the certificates to view them!
+
+        <div className="bg-[#1b1b1b] rounded-2xl shadow-lg border border-white/10">
+          <DraggableCardContainer className="relative h-[600px] flex w-full items-center justify-center overflow-hidden">
+            <p className="absolute top-1/2 mx-auto max-w-sm -translate-y-3/4 text-center text-2xl font-black text-neutral-400 md:text-4xl">
+              Hover and drag the certificates to view them!
             </p>
+
             {items.map((item) => (
               <DraggableCardBody className={item.className} key={item.title}>
                 <img

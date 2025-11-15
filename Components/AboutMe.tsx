@@ -5,18 +5,20 @@ export default function AboutMe() {
   return (
     <>
       <div className="p-10 shadow-[0_4px_10px_rgba(128,128,128,0.4)]">
-        <h1 className="text-4xl font-bold mb-10 text-center">
+        <h1 className=" md:text-4xl text-3xl font-bold mb-10 text-center">
           <span className="text-(--tertiary)">About </span>
           <span className="text-(--secondary)">Me</span>
         </h1>
 
         {/* TWO COLUMN LAYOUT */}
-        <div className="flex justify-center gap-10 mt-18 pb-8">
+        <div className="flex flex-col md:flex-row justify-center gap-10 mt-18 pb-8">
+          
           {/* LEFT SIDE */}
-          <div className="w-1/2 text-white text-lg leading-relaxed text-justify">
+          <div className="w-full md:w-1/2 text-white  md:text-lg text-base leading-relaxed text-justify">
+            
             {/* Paragraph 1 */}
             <p
-              className="indent-10 "
+              className="indent-10"
               style={{
                 opacity: 0,
                 animation: "fadeBlurUp 0.8s ease-out forwards",
@@ -70,8 +72,8 @@ export default function AboutMe() {
             </p>
           </div>
 
-          {/* RIGHT SIDE – Only Profile Card */}
-          <div className="w-1/2 flex justify-center align-center">
+          {/* RIGHT SIDE – Profile Card (hidden on mobile) */}
+          <div className="w-1/2 hidden md:flex justify-center items-center">
             <ProfileCard
               name="Dhanushkodi Adhithan. M"
               title="Full Stack Developer"
@@ -93,6 +95,7 @@ export default function AboutMe() {
               }}
             />
           </div>
+
         </div>
       </div>
     </>
