@@ -1,10 +1,4 @@
-/* eslint-disable react/no-unknown-property */
 "use client";
-import {
-  MeshLine,
-  MeshLineGeometry,
-  MeshLineMaterial,
-} from "@lume/three-meshline";
 
 import { useEffect, useRef, useState } from "react";
 import { Canvas, extend, useFrame } from "@react-three/fiber";
@@ -14,6 +8,7 @@ import {
   Environment,
   Lightformer,
 } from "@react-three/drei";
+
 import {
   BallCollider,
   CuboidCollider,
@@ -21,42 +16,40 @@ import {
   RigidBody,
   useRopeJoint,
   useSphericalJoint,
-  RigidBodyProps,
 } from "@react-three/rapier";
+
+import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import * as THREE from "three";
-extend({ MeshLine, MeshLineGeometry, MeshLineMaterial });
-// Static asset paths (served from /public)
+
+// asset paths
 const cardGLB = "/card.glb";
 const lanyard = "/lanyard.png";
+const photo = "/ME.png";
 
-interface LanyardProps {
-  position?: [number, number, number];
-  gravity?: [number, number, number];
-  fov?: number;
-  transparent?: boolean;
-}
+extend({ MeshLineGeometry, MeshLineMaterial });
 
 export default function Lanyard({
   position = [0, 0, 30],
   gravity = [0, -40, 0],
   fov = 20,
   transparent = true,
-}: LanyardProps) {
+}) {
   return (
-    <div className="relative z-0 w-full h-screen  transform scale-100 origin-top ">
+    <div className="relative z-0 w-full h-screen flex justify-center items-center">
       <Canvas
         camera={{ position, fov }}
         gl={{ alpha: transparent }}
-        style={{ overflow: "visible" }}
         onCreated={({ gl }) =>
           gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)
         }
       >
         <ambientLight intensity={Math.PI} />
+
         <Physics gravity={gravity} timeStep={1 / 60}>
           <Band />
         </Physics>
 
+        {/* Environment light setup */}
         <Environment blur={0.75}>
           <Lightformer
             intensity={2}
@@ -92,46 +85,36 @@ export default function Lanyard({
   );
 }
 
-interface BandProps {
-  maxSpeed?: number;
-  minSpeed?: number;
-}
-
-function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
-  const band = useRef<any>(null);
-  const fixed = useRef<any>(null);
-  const j1 = useRef<any>(null);
-  const j2 = useRef<any>(null);
-  const j3 = useRef<any>(null);
-  const card = useRef<any>(null);
+function Band({ maxSpeed = 50, minSpeed = 0 }) {
+  const band = useRef();
+  const fixed = useRef();
+  const j1 = useRef();
+  const j2 = useRef();
+  const j3 = useRef();
+  const card = useRef();
 
   const vec = new THREE.Vector3();
   const ang = new THREE.Vector3();
   const rot = new THREE.Vector3();
   const dir = new THREE.Vector3();
 
-  const segmentProps: any = {
-    type: "dynamic" as RigidBodyProps["type"],
+  const segmentProps = {
+    type: "dynamic",
     canSleep: true,
     colliders: false,
     angularDamping: 4,
     linearDamping: 4,
   };
 
-  const { nodes, materials } = useGLTF(cardGLB) as any;
-  const texture = useTexture(lanyard);
-
-  // ✅ Apply anisotropy & roughness imperatively after load
-  useEffect(() => {
-    if (materials?.base?.map) {
-      materials.base.map.anisotropy = 16;
-      materials.base.map.needsUpdate = true;
-    }
-    if (materials?.metal) {
-      materials.metal.roughness = 0.3;
-      materials.metal.needsUpdate = true;
-    }
-  }, [materials]);
+  const { nodes, materials } = useGLTF(cardGLB);
+  const strapTexture = useTexture(lanyard, (tex) => {
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(-4, 1); // if you want repeat
+  });
+  const photoTexture = useTexture(photo, (tex) => {
+    tex.flipY = false;
+  });
 
   const [curve] = useState(
     () =>
@@ -143,23 +126,18 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
       ])
   );
 
-  const [dragged, drag] = useState<false | THREE.Vector3>(false);
+  const [dragged, drag] = useState(false);
   const [hovered, hover] = useState(false);
-  const photoTexture = useTexture("/ME.png");
 
-  const [isSmall, setIsSmall] = useState<boolean>(() =>
-    typeof window !== "undefined" ? window.innerWidth < 1024 : false
+  const [isSmall, setIsSmall] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 1024
   );
 
-  useEffect(() => {
-    const handleResize = () => setIsSmall(window.innerWidth < 1024);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
+  // 🔗 Rope joints
   useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]);
   useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
   useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]);
+
   useSphericalJoint(j3, card, [
     [0, 0, 0],
     [0, 1.45, 0],
@@ -168,93 +146,104 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
   useEffect(() => {
     if (hovered) {
       document.body.style.cursor = dragged ? "grabbing" : "grab";
-      return () => {
-        document.body.style.cursor = "auto";
-      };
+      return () => (document.body.style.cursor = "auto");
     }
   }, [hovered, dragged]);
 
+  useEffect(() => {
+    const resize = () => setIsSmall(window.innerWidth < 1024);
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
+
+  // 🎮 Drag mechanics
   useFrame((state, delta) => {
-    if (dragged && typeof dragged !== "boolean") {
+    if (dragged) {
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
       dir.copy(vec).sub(state.camera.position).normalize();
       vec.add(dir.multiplyScalar(state.camera.position.length()));
+
       [card, j1, j2, j3, fixed].forEach((ref) => ref.current?.wakeUp());
+
       card.current?.setNextKinematicTranslation({
         x: vec.x - dragged.x,
         y: vec.y - dragged.y,
         z: vec.z - dragged.z,
       });
     }
+
     if (fixed.current) {
       [j1, j2].forEach((ref) => {
         if (!ref.current.lerped)
           ref.current.lerped = new THREE.Vector3().copy(
             ref.current.translation()
           );
-        const clampedDistance = Math.max(
-          0.1,
-          Math.min(1, ref.current.lerped.distanceTo(ref.current.translation()))
-        );
+
+        const dist = ref.current.lerped.distanceTo(ref.current.translation());
+
+        const clamped = Math.max(0.1, Math.min(1, dist));
+
         ref.current.lerped.lerp(
           ref.current.translation(),
-          delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
+          delta * (minSpeed + clamped * (maxSpeed - minSpeed))
         );
       });
+
       curve.points[0].copy(j3.current.translation());
       curve.points[1].copy(j2.current.lerped);
       curve.points[2].copy(j1.current.lerped);
       curve.points[3].copy(fixed.current.translation());
+
       band.current.geometry.setPoints(curve.getPoints(32));
+
       ang.copy(card.current.angvel());
       rot.copy(card.current.rotation());
-      card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
+
+      card.current.setAngvel({
+        x: ang.x,
+        y: ang.y - rot.y * 0.25,
+        z: ang.z,
+      });
     }
   });
 
-  curve.curveType = "chordal";
-  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  // Texture wrap
 
   return (
     <>
       <group position={[0, 4, 0]}>
-        <RigidBody
-          ref={fixed}
-          position={[0, 0, 0]}
-          {...segmentProps}
-          type={"fixed" as RigidBodyProps["type"]}
-        />
-        <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
+        <RigidBody ref={fixed} {...segmentProps} type="fixed" />
+
+        <RigidBody ref={j1} position={[0.5, 0, 0]} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}>
+
+        <RigidBody ref={j2} position={[1, 0, 0]} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps}>
+
+        <RigidBody ref={j3} position={[1.5, 0, 0]} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
 
         <RigidBody
-          position={[0, 0, 0]}
           ref={card}
+          position={[2, 0, 0]}
           {...segmentProps}
-          type={
-            dragged
-              ? ("kinematicPosition" as RigidBodyProps["type"])
-              : ("dynamic" as RigidBodyProps["type"])
-          }
+          type={dragged ? "kinematicPosition" : "dynamic"}
         >
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
+
           <group
             scale={2.25}
             position={[0, -1.2, -0.05]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
-            onPointerUp={(e: any) => {
+            onPointerUp={(e) => {
               e.target.releasePointerCapture(e.pointerId);
               drag(false);
             }}
-            onPointerDown={(e: any) => {
+            onPointerDown={(e) => {
               e.target.setPointerCapture(e.pointerId);
               drag(
                 new THREE.Vector3()
@@ -263,12 +252,11 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
               );
             }}
           >
+            {/* ID CARD FRONT */}
             <mesh
               geometry={nodes.card.geometry}
-              rotation={[Math.PI, 0, 0]}
-              position={[0, 1, 0]}
+              rotation={[0, Math.PI, 0]} // Matches your card’s upside-down orientation
             >
-              {" "}
               <meshPhysicalMaterial
                 map={photoTexture}
                 clearcoat={1}
@@ -277,22 +265,24 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
                 metalness={0.8}
               />
             </mesh>
+
             <mesh geometry={nodes.clip.geometry} material={materials.metal} />
             <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
           </group>
         </RigidBody>
       </group>
 
-      {/* 🧵 Lanyard strap */}
-
-      <mesh>
-        <meshLine attach="geometry" ref={band} />
+      {/* LANYARD STRAP */}
+      <mesh ref={band}>
+        <meshLineGeometry />
         <meshLineMaterial
-          attach="material"
-          map={texture}
-          lineWidth={1}
           color="white"
-          resolution={[1000, 1000]}
+          useMap
+          map={strapTexture}
+          repeat={[-4, 1]}
+          lineWidth={1}
+          depthTest={false}
+          resolution={isSmall ? [1000, 2000] : [1000, 1000]}
         />
       </mesh>
     </>
