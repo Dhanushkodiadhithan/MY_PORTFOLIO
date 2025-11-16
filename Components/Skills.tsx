@@ -124,7 +124,7 @@ export default function Skills() {
                   Databases
                 </h2>
                 <div className="flex flex-wrap gap-3">
-                  {["MongoDB", "PostgreSQL"].map((skill) => (
+                  {["MongoDB", "MySql"].map((skill) => (
                     <span
                       key={skill}
                       className="px-3 py-1 text-sm rounded-full bg-white/10 border border-white/20 
