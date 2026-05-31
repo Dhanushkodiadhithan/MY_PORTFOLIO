@@ -8,7 +8,6 @@ import {
   SiTailwindcss,
   SiJavascript,
   SiHtml5,
-  SiCss3,
   SiRedux,
   SiExpress,
   SiNodedotjs,
@@ -28,13 +27,8 @@ const techLogos = [
   },
   { node: <SiReact />, title: "React", href: "https://react.dev" },
   { node: <SiRedux />, title: "Redux", href: "https://redux.js.org" },
-  
+
   { node: <SiNodedotjs />, title: "Node.js", href: "https://nodejs.org" },
-  {
-  node: <SiCss3 />,
-  title: "CSS3",
-  href: "https://developer.mozilla.org/en-US/docs/Web/CSS",
-},
   { node: <SiExpress />, title: "Express.js", href: "https://expressjs.com" },
   { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
   { node: <SiPrisma />, title: "Prisma ORM", href: "https://www.prisma.io" },
